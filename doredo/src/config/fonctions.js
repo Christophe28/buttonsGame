@@ -3,9 +3,9 @@ export const generateColor = (setResult) => {
   setResult(randomColor);
 };
 
-export const onClickEvent = (isColoredButton, setColoredButtonIndex, nButtons, setCurrentScore, currentScore, points) => {
-  if(isColoredButton) {
-    setColoredButtonIndex(Math.floor(Math.random()*nButtons));
-    setCurrentScore(currentScore - points);
+export const onClickEvent = (exist, setStateA, n, setStateB, currentStateB, x) => {
+  if(exist) {
+    setStateA(Math.floor(Math.random()*n));
+    setStateB(currentStateB - x);
   }
 }
