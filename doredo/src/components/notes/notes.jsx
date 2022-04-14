@@ -1,21 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { generateColor } from "../../config/fonctions";
+import { generateColor, onClickEvent } from "../../config/fonctions";
 
-//=====================================Config=====================================//
-const nButtons = 100;
-const startButton = Math.floor(Math.random()*nButtons);
-const score = 20;
-const points = 1;
-const remainingTime = 30;
-
-const Notes = () => {
+const Notes = ({ 
+  nButtons, 
+  startButton, 
+  score, 
+  points, 
+  remainingTime 
+}) => {
   const [coloredButtonIndex, setColoredButtonIndex] = useState(startButton);
   const [currentRandomColor, setCurrentRandomColor] = useState("");
   const [currentScore, setCurrentScore] = useState(score);
   const [currentTime, setCurrentTime] = useState(remainingTime);
 
-  //=====================================Logic=====================================//
   useEffect(() => {
     let chrono = null;
     chrono = setInterval(() => {
@@ -37,12 +35,6 @@ const Notes = () => {
     generateColor(setCurrentRandomColor);
   }, [coloredButtonIndex]);
 
-  const onClickEvent = (isColoredButton) => {
-    if(isColoredButton) {
-      setColoredButtonIndex(Math.floor(Math.random()*nButtons));
-      setCurrentScore(currentScore - points);
-    }
-  }
   return (
     <div className="container-notes">
       <p>Il vous reste <strong>{currentScore}</strong> boutons à clicker... click click click</p>
@@ -58,7 +50,7 @@ const Notes = () => {
               type="button"
               key={index}
               style={currentButtonStyle}
-              onClick={() => onClickEvent(coloredButtonIndex === index)} 
+              onClick={() => onClickEvent(coloredButtonIndex === index, setColoredButtonIndex, nButtons, setCurrentScore, currentScore, points)} 
             />
           )
         })
