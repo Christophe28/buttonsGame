@@ -4,15 +4,18 @@ import { generateColor, onClickEvent } from "../../config/fonctions";
 
 const Notes = ({ 
   nButtons, 
-  startButton, 
   score, 
   points, 
-  remainingTime 
+  remainingTime,
+  coloredButtonIndex,
+  setColoredButtonIndex,
+  currentRandomColor,
+  setCurrentRandomColor,
+  currentScore,
+  setCurrentScore,
+  currentTime,
+  setCurrentTime
 }) => {
-  const [coloredButtonIndex, setColoredButtonIndex] = useState(startButton);
-  const [currentRandomColor, setCurrentRandomColor] = useState("");
-  const [currentScore, setCurrentScore] = useState(score);
-  const [currentTime, setCurrentTime] = useState(remainingTime);
 
   useEffect(() => {
     let chrono = null;
