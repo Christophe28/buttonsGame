@@ -7,28 +7,31 @@ const nButtons = 100;
 const startButton = Math.floor(Math.random()*nButtons);
 const score = 20;
 const points = 1;
-const chrono = 20;
+const remainingTime = 30;
 
 const Notes = () => {
   const [coloredButtonIndex, setColoredButtonIndex] = useState(startButton);
   const [currentRandomColor, setCurrentRandomColor] = useState("");
   const [currentScore, setCurrentScore] = useState(score);
-  const [currentTime, setCurrentTime] = useState(chrono);
+  const [currentTime, setCurrentTime] = useState(remainingTime);
 
   //=====================================Logic=====================================//
   useEffect(() => {
     let chrono = null;
     chrono = setInterval(() => {
-      setCurrentTime((currentTime) => currentTime - 1);
+      setCurrentTime((currentTime) => currentTime === 0 ? clearInterval(chrono) : currentTime - 1);
     }, 1000);
-  }, []);
+  }, []); 
 
   useEffect(() => {
+    if(currentTime === 0) {
+      alert("vous avez perdu, il vous reste " + currentScore + " boutton ")
+    }
     if(currentScore === 0) {
-      alert("Félicitation vous avez cliqué sur les boutons en quelques secondes");
+      alert("Félicitation vous avez cliqué sur tous les boutons dans le temps impartit, il restait encore " + currentTime + " secondes");
       setCurrentScore(score);
     }
-  }, [currentScore]);
+  }, [currentTime, currentScore]);
 
   useEffect(() => {
     generateColor(setCurrentRandomColor);
